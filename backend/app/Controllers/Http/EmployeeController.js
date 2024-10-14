@@ -5,7 +5,6 @@ const User = use("App/Models/User")
 const Database = use("Database")
 const { validateAll } = use("Validator")
 const Env = use("Env")
-const rabbitmq = require("../../Helper/rabbitmq")
 
 class EmployeeController {
 	async create({ request, response, auth }) {

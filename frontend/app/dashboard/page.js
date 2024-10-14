@@ -43,17 +43,28 @@ class Dashboard extends React.Component {
 	}
 
 	getUser() {
-		const dataUser = localStorage.getItem("user")
-		let user = null
-		if (dataUser) {
-			const data = hash.decrypt(dataUser)
-			if (!data) {
-				window.location.href = "/"
-				return
-			}
-			user = JSON.parse(data)
-			this.setState({ user: user.user })
-		}
+		axios({
+			url: constants.NEXT_BASE_API_URL + "/user/get-user",
+			headers: {
+				Authorization: `Bearer ${this.state.token}`,
+			},
+			method: "GET",
+			timeout: constants.TIMEOUT,
+		})
+			.then((response) => {
+				if (response.status == 200) {
+					this.setState({
+						user: response.data.data.user,
+					})
+				} else if (response.status == 400) {
+					toast.error(response.data.message)
+				} else {
+					toast.error(response.data.message)
+				}
+			})
+			.catch((error) => {
+				console.log(error)
+			})
 	}
 
 	getAttendance() {
