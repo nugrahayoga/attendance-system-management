@@ -28,9 +28,12 @@
 		"@adonisjs/shield": "^1.0.8",
 		"@adonisjs/validator": "^5.1.0",
 		"@google-cloud/pubsub": "^4.7.2",
+		"amqp-simple-pub-sub": "^1.2.2",
 		"luxon": "^3.5.0",
+		"mongodb": "^6.9.0",
 		"mysql": "^2.18.1",
-		"mysql2": "^2.3.3"
+		"mysql2": "^2.3.3",
+		"ua-parser-js": "^1.0.39"
 	},
 	"autoload": {
 		"App": "./app"
