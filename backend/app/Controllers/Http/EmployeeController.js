@@ -4,7 +4,7 @@ const Employee = use("App/Models/Employee")
 const User = use("App/Models/User")
 const Database = use("Database")
 const { validateAll } = use("Validator")
-const Env = use("Env")
+const Publisher = require("../Helper/RabbitMQ/Publisher")
 
 class EmployeeController {
 	async create({ request, response, auth }) {
@@ -159,6 +159,21 @@ class EmployeeController {
 				},
 				trx
 			)
+
+			const logData = {
+				user_id: user.id,
+				name: name,
+				email: email,
+				phone: phone,
+				address: address,
+				position: position,
+				created_by: auth.user.id,
+				updated_by: auth.user.id,
+				created_at: new Date(),
+				updated_at: new Date(),
+			}
+
+			await Publisher.publish("logs", JSON.stringify(logData))
 
 			await trx.commit()
 			const data = {

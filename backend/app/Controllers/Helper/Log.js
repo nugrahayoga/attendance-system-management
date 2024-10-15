@@ -22,8 +22,6 @@ class Log {
 					Env.get("DB_MONGO_PORT") +
 					"/" +
 					"?authSource=admin&maxPoolSize=20&w=majority"
-				console.log("MONGO URL CONNECTION")
-				console.log(url)
 				var mongoClient = new MongoClient(url)
 				await mongoClient.connect()
 				const _db = mongoClient.db(Env.get("DB_MONGO_DATABASE"))
